@@ -1,9 +1,13 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
-/.pnp
-.pnp.js
+/policy-document-assistantnpx/node_modules
+/policy-document-assistantnpx/.pnp
+policy-document-assistantnpx/.pnp.js
+
+/backend/myenv
+/backend/.env
+/backend/__pycache__
 
 # testing
 /coverage

@@ -7,6 +7,9 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 # Initialize FastAPI app
 app = FastAPI()
@@ -34,8 +37,8 @@ class QueryResponse(BaseModel):
 # Initialize LLM and embeddings
 def setup_models():
     global llm, embeddings
-    llm = ChatGoogleGenerativeAI(model="gemini-pro", api_key="AIzaSyAWkIlKzsQCnXXE-RnN3FQ345CxinN3CsM")
-    embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001", google_api_key="AIzaSyAWkIlKzsQCnXXE-RnN3FQ345CxinN3CsM")
+    llm = ChatGoogleGenerativeAI(model="gemini-pro", api_key= os.environ.get("GOOGLE_API_KEY"))
+    embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001", google_api_key=os.environ.get("GOOGLE_API_KEY"))
 
 # Load PDF and split it into chunks
 import tempfile

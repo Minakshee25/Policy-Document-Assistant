@@ -1,16 +1,14 @@
-# Policy Document Assistant
+# RAG-Powered PDF Chatbot
 
-The **Policy Document Assistant** is an AI-powered application that helps employees or customers query company policies, compliance regulations, and HR handbooks with precision. It uses **Retrieval-Augmented Generation (RAG)** to retrieve relevant policy sections and generate concise, user-friendly responses using a large language model (LLM).
-
----
+A chatbot that enables users to upload a PDF and query its contents using different Retrieval-Augmented Generation (RAG) techniques. This implementation starts with a simple RAG method, utilizing a vector store created with the **Gemini embedding model**, and is built using **LangChain**, **FastAPI**, and **React**.
 
 ## Features
-- **Policy Querying**: Enables users to ask questions like "What is the company's leave policy?" or "How do I submit a reimbursement claim?".
-- **Document Ingestion**: Automatically indexes policy documents (PDFs, DOCs, or plain text).
-- **Accurate Retrieval**: Retrieves the most relevant sections of documents using vector embeddings.
-- **Natural Language Responses**: Generates detailed yet simple explanations using an LLM.
-- **Dynamic Document Updates**: Allows HR teams to add or update policy documents in real-time.
-- **Dashboard**: Provides an intuitive user interface for queries and document management.
+
+- Upload PDFs and convert them into a searchable vector store.
+- Query the document using **RAG with Gemini embeddings**.
+- Fast and scalable backend powered by **FastAPI**.
+- Interactive frontend built with **React**.
+- Extendable to support multiple retrieval techniques with different LLMs
 
 ---
 

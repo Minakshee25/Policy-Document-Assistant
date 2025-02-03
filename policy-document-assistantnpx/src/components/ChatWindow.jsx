@@ -53,6 +53,7 @@ function ChatWindow() {
           <option value="simple_rag">Simple RAG</option>
           <option value="query_transformation_rag">Query Transformation RAG</option>
           <option value="hybrid_rag">Hybrid RAG</option>
+          <option value="reranking_rag">reranking_rag</option>
         </select>
       </div>
 

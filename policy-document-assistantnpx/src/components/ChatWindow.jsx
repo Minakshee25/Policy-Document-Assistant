@@ -2,27 +2,29 @@ import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import Message from "./Message";
 import ChatInput from "./ChatInput";
-
+ 
 function ChatWindow() {
   const [messages, setMessages] = useState([]);
   const [ragMethod, setRagMethod] = useState("simple_rag"); // Default RAG method
   const [queryTransformationOption, setQueryTransformationOption] = useState("");
+  const [evalutionresult,setevalutionresult]=useState("")
   const messagesEndRef = useRef(null);
-
+ 
   // Auto-scroll to latest message
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
-
+ 
   const handleSendMessage = async (message) => {
     setMessages([...messages, { text: message, sender: "user" }]);
-
+ 
     try {
       const response = await axios.post(`http://localhost:8000/${ragMethod}/response/`, {
         question: message,
         query_transformation_option: queryTransformationOption, // Pass selected option if Query Transformation RAG is selected
       });
-
+      console.log(response.data.rag_evalution)
+      setevalutionresult(response.data.rag_evalution)
       // Handle the response (single string response expected now)
       if (response.data.answer) {
         setMessages((prevMessages) => [
@@ -43,7 +45,7 @@ function ChatWindow() {
       ]);
     }
   };
-
+ 
   return (
     <div className="chat-content" style={{ display: "flex", flexDirection: "column", height: "100vh", overflowY: "auto" }}>
       {/* Dropdown to Select RAG Technique */}
@@ -52,11 +54,10 @@ function ChatWindow() {
         <select value={ragMethod} onChange={(e) => setRagMethod(e.target.value)}>
           <option value="simple_rag">Simple RAG</option>
           <option value="query_transformation_rag">Query Transformation RAG</option>
-          <option value="hybrid_rag">Hybrid RAG</option>
-          <option value="reranking_rag">reranking_rag</option>
+          <option value="re-ranking_rag">Re-Ranking RAG</option>
         </select>
       </div>
-
+ 
       {/* Show additional options for Query Transformation RAG */}
       {ragMethod === "query_transformation_rag" && (
         <div style={{ marginTop: "10px" }}>
@@ -96,19 +97,19 @@ function ChatWindow() {
           </div>
         </div>
       )}
-
+ 
       {/* Messages Display */}
       <div className="messages" style={{ flex: 1, overflowY: "auto" }}>
         {messages.map((msg, index) => (
-          <Message key={index} text={msg.text} sender={msg.sender} />
+          <Message key={index} text={msg.text} sender={msg.sender} evalution={evalutionresult}/>
         ))}
         <div ref={messagesEndRef} />
       </div>
-
+ 
       {/* Chat Input */}
       <ChatInput onSend={handleSendMessage} />
     </div>
   );
 }
-
+ 
 export default ChatWindow;
